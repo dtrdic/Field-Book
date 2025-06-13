@@ -1,6 +1,8 @@
+import 'package:fieldbook/app_widgets.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
 
 class AboutActivity extends StatefulWidget {
   const AboutActivity({super.key});
@@ -68,75 +70,190 @@ class _AboutActivityState extends State<AboutActivity> {
     return latestParts.length > currentParts.length;
   }
 
+  void _showCitationDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Citation'),
+        content: const Text(
+          'Please cite Field Book as:\n\nRife TW, Poland JA. Field Book: An Open-Source Application for Field Data Collection on Android. Crop Science. 2014;54(4):1624-1627.'
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _launchUrl(String url) async {
+    final uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    }
+  }
+
+  Future<void> _launchEmail(String email, {String? subject}) async {
+    final uri = Uri(
+      scheme: 'mailto',
+      path: email,
+      query: subject != null ? 'subject=${Uri.encodeComponent(subject)}' : null,
+    );
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    }
+  }
+
+  Future<void> _openAppOrStore(String packageName, String storeUrl) async {
+    try {
+      // Try to launch the app
+      bool launched = await launchUrl(Uri.parse('intent://#Intent;package=$packageName;end'));
+      if (!launched) {
+        await _launchUrl(storeUrl);
+      }
+    } catch (_) {
+      await _launchUrl(storeUrl);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('About'),
+      appBar: buildAppBar(
+        context,
+        title: 'About',
       ),
       body: ListView(
         padding: const EdgeInsets.all(8),
         children: [
-          // App title/version card
+          // App info card (title, version, update, manual, citation, rate)
           Card(
-            child: ListTile(
-              leading: const Icon(Icons.info),
-              title: const Text('Field Book'),
-              subtitle: Text('Version: $version'),
+            child: Column(
+              children: [
+                ListTile(
+                  leading: const Icon(Icons.info),
+                  title: const Text('Field Book'),
+                  subtitle: Text('Version: $version'),
+                ),
+                ListTile(
+                  leading: checkingUpdate
+                      ? const CircularProgressIndicator()
+                      : Icon(isUpdateAvailable ? Icons.system_update : Icons.verified),
+                  title: Text(isUpdateAvailable
+                      ? 'Update Available: $latestVersion'
+                      : 'No Updates'),
+                  subtitle: isUpdateAvailable && downloadUrl.isNotEmpty
+                      ? const Text('Tap to download')
+                      : null,
+                  onTap: isUpdateAvailable && downloadUrl.isNotEmpty
+                      ? () => _launchUrl(downloadUrl)
+                      : null,
+                ),
+                ListTile(
+                  leading: const Icon(Icons.menu_book),
+                  title: const Text('Manual'),
+                  subtitle: const Text('https://fieldbook.phenoapps.org/'),
+                  onTap: () => _launchUrl('https://fieldbook.phenoapps.org/'),
+                ),
+                ListTile(
+                  leading: const Icon(Icons.description),
+                  title: const Text('Citation'),
+                  onTap: _showCitationDialog,
+                ),
+                ListTile(
+                  leading: const Icon(Icons.star_rate),
+                  title: const Text('Rate this app'),
+                  onTap: () => _launchUrl('https://play.google.com/store/apps/details?id=com.fieldbook.tracker'),
+                ),
+              ],
             ),
           ),
-          // Update check card
+          // Project lead card
           Card(
-            child: ListTile(
-              leading: checkingUpdate
-                  ? const CircularProgressIndicator()
-                  : const Icon(Icons.system_update),
-              title: Text(isUpdateAvailable
-                  ? 'Update Available: $latestVersion'
-                  : 'No Updates'),
-              subtitle: isUpdateAvailable && downloadUrl.isNotEmpty
-                  ? const Text('Tap to download')
-                  : null,
-              onTap: isUpdateAvailable && downloadUrl.isNotEmpty
-                  ? () {
-                      // Implement URL launch (e.g., using url_launcher)
-                      // ...existing code for launching URL...
-                    }
-                  : null,
+            child: Column(
+              children: [
+                ListTile(
+                  leading: const Icon(Icons.person),
+                  title: const Text('Project Lead'),
+                  subtitle: const Text('Trife – Project Lead Info'),
+                ),
+                ListTile(
+                  leading: const Icon(Icons.email),
+                  title: const Text('Email'),
+                  subtitle: const Text('trife@example.com'),
+                  onTap: () => _launchEmail('trife@example.com', subject: 'Field Book Question'),
+                ),
+              ],
             ),
           ),
-          // Developer info card
+          // Contributors & funding card
           Card(
-            child: ListTile(
-              leading: const Icon(Icons.person),
-              title: const Text('Project Lead'),
-              subtitle: const Text('Trife – Project Lead Info'),
+            child: Column(
+              children: [
+                ListTile(
+                  leading: const Icon(Icons.people),
+                  title: const Text('Contributors'),
+                  subtitle: const Text('https://github.com/PhenoApps/Field-Book#-contributors'),
+                  onTap: () => _launchUrl('https://github.com/PhenoApps/Field-Book#-contributors'),
+                ),
+                ListTile(
+                  leading: const Icon(Icons.attach_money),
+                  title: const Text('Funding'),
+                  subtitle: const Text('https://github.com/PhenoApps/Field-Book#-funding'),
+                  onTap: () => _launchUrl('https://github.com/PhenoApps/Field-Book#-funding'),
+                ),
+              ],
             ),
           ),
-          // Contact card
+          // Technical card (GitHub, libraries)
           Card(
-            child: ListTile(
-              leading: const Icon(Icons.email),
-              title: const Text('Email'),
-              subtitle: const Text('trife@example.com'),
-              onTap: () {
-                // ...existing code to launch email client...
-              },
+            child: Column(
+              children: [
+                ListTile(
+                  leading: const Icon(Icons.code),
+                  title: const Text('GitHub'),
+                  subtitle: const Text('https://github.com/PhenoApps/Field-Book'),
+                  onTap: () => _launchUrl('https://github.com/PhenoApps/Field-Book'),
+                ),
+                ListTile(
+                  leading: const Icon(Icons.library_books),
+                  title: const Text('Open Source Libraries'),
+                  onTap: () => _launchUrl('https://github.com/PhenoApps/Field-Book#-libraries'),
+                ),
+              ],
             ),
           ),
-          // Contributors card
+          // Other apps card
           Card(
-            child: ListTile(
-              leading: const Icon(Icons.web),
-              title: const Text('Contributors'),
-              subtitle: const Text('https://github.com/PhenoApps/Field-Book#-contributors'),
-              onTap: () {
-                // ...existing code to open website...
-              },
+            child: Column(
+              children: [
+                ListTile(
+                  leading: const Icon(Icons.language),
+                  title: const Text('PhenoApps.org'),
+                  subtitle: const Text('http://phenoapps.org/'),
+                  onTap: () => _launchUrl('http://phenoapps.org/'),
+                ),
+                ListTile(
+                  leading: const Icon(Icons.apps),
+                  title: const Text('Coordinate'),
+                  onTap: () => _openAppOrStore(
+                    'org.wheatgenetics.coordinate',
+                    'https://play.google.com/store/apps/details?id=org.wheatgenetics.coordinate',
+                  ),
+                ),
+                ListTile(
+                  leading: const Icon(Icons.apps),
+                  title: const Text('Intercross'),
+                  onTap: () => _openAppOrStore(
+                    'org.phenoapps.intercross',
+                    'https://play.google.com/store/apps/details?id=org.phenoapps.intercross',
+                  ),
+                ),
+              ],
             ),
           ),
-          // Additional cards can be added here to fully replicate the Java AboutActivity
-          // ...existing code...
         ],
       ),
     );

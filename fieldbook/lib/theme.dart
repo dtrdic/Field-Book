@@ -71,6 +71,16 @@ final ThemeData appTheme = ThemeData(
     padding: const EdgeInsets.all(4),
     shape: const StadiumBorder(),
   ),
+  appBarTheme: const AppBarTheme(
+    backgroundColor: AppColors.mainPrimary, // Matches Android navbar color
+    foregroundColor: AppColors.mainColorTextLight, // Text/icon color
+    iconTheme: IconThemeData(color: AppColors.mainColorIconTint),
+    titleTextStyle: TextStyle(
+      color: AppColors.mainColorTextLight,
+      fontSize: 20,
+      fontWeight: FontWeight.w600,
+    ),
+    elevation: 4,
+  ),
   // Add more mappings as needed for your app
 );
-
