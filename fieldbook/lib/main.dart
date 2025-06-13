@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'com/fieldbook/tracker/activities/about_activity.dart';
 
 void main() => runApp(const MyApp());
 
@@ -21,7 +22,9 @@ class MyApp extends StatelessWidget {
         // counter didn't reset back to zero; the application is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      // Swap between MyHomePage and AboutActivity for testing
+      // home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const AboutActivity(),
     );
   }
 }

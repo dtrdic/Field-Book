@@ -310,7 +310,7 @@ public class ConfigActivity extends ThemedActivity {
                 getString(R.string.settings_advanced),
                 getString(R.string.settings_statistics),
                 getString(R.string.about_title),
-                "Flutter Test"
+                getString(R.string.about_title) + " (Flutter)"
         };
 
         Integer[] image_id = {
@@ -321,7 +321,7 @@ public class ConfigActivity extends ThemedActivity {
                 R.drawable.ic_nav_drawer_settings,
                 R.drawable.ic_nav_drawer_statistics,
                 R.drawable.ic_tb_info,
-                android.R.drawable.ic_menu_compass // <-- Placeholder icon for Flutter Test
+                android.R.drawable.ic_menu_compass
         };
 
         settingsList.setOnItemClickListener((av, arg1, position, arg3) -> {
@@ -369,10 +369,12 @@ public class ConfigActivity extends ThemedActivity {
                             AboutActivity.class.getName());
                     startActivity(intent);
                     break;
-                case 7: // Flutter Test
-                    // Launch FlutterActivity
+                case 7:
                     startActivity(
-                        FlutterActivity.createDefaultIntent(ConfigActivity.this)
+                            FlutterActivity
+                                    .withNewEngine()
+                                    .initialRoute("/about")
+                                    .build(ConfigActivity.this)
                     );
                     break;
             }
