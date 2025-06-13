@@ -67,6 +67,7 @@ import java.util.Set;
 import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
+import io.flutter.embedding.android.FlutterActivity;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
@@ -301,10 +302,27 @@ public class ConfigActivity extends ThemedActivity {
 
         settingsList = findViewById(R.id.myList);
 
-        String[] configList = new String[]{getString(R.string.settings_fields),
-                getString(R.string.settings_traits), getString(R.string.settings_collect), getString(R.string.settings_export), getString(R.string.settings_advanced), getString(R.string.settings_statistics), getString(R.string.about_title)};
+        String[] configList = new String[]{
+                getString(R.string.settings_fields),
+                getString(R.string.settings_traits),
+                getString(R.string.settings_collect),
+                getString(R.string.settings_export),
+                getString(R.string.settings_advanced),
+                getString(R.string.settings_statistics),
+                getString(R.string.about_title),
+                "Flutter Test"
+        };
 
-        Integer[] image_id = {R.drawable.ic_nav_drawer_fields, R.drawable.ic_nav_drawer_traits, R.drawable.ic_nav_drawer_collect_data, R.drawable.trait_date_save, R.drawable.ic_nav_drawer_settings, R.drawable.ic_nav_drawer_statistics, R.drawable.ic_tb_info};
+        Integer[] image_id = {
+                R.drawable.ic_nav_drawer_fields,
+                R.drawable.ic_nav_drawer_traits,
+                R.drawable.ic_nav_drawer_collect_data,
+                R.drawable.trait_date_save,
+                R.drawable.ic_nav_drawer_settings,
+                R.drawable.ic_nav_drawer_statistics,
+                R.drawable.ic_tb_info,
+                android.R.drawable.ic_menu_compass // <-- Placeholder icon for Flutter Test
+        };
 
         settingsList.setOnItemClickListener((av, arg1, position, arg3) -> {
             Intent intent = new Intent();
@@ -350,6 +368,12 @@ public class ConfigActivity extends ThemedActivity {
                     intent.setClassName(ConfigActivity.this,
                             AboutActivity.class.getName());
                     startActivity(intent);
+                    break;
+                case 7: // Flutter Test
+                    // Launch FlutterActivity
+                    startActivity(
+                        FlutterActivity.createDefaultIntent(ConfigActivity.this)
+                    );
                     break;
             }
         });
