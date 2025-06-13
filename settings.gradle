@@ -11,5 +11,26 @@ pluginManagement {
         }
     }
 }
+dependencyResolutionManagement {
+    repositoriesMode = RepositoriesMode.PREFER_SETTINGS
+    String storageUrl = System.env.FLUTTER_STORAGE_BASE_URL ?: "https://storage.googleapis.com"
+    repositories {
+        google()
+        mavenCentral()
+        maven {
+            url = uri("$storageUrl/download.flutter.io")
+        }
+        maven {
+            url = uri("https://storage.googleapis.com/r8-releases/raw")
+        }
+        maven { url "https://jitpack.io" }
+        maven { url 'https://raw.github.com/saki4510t/libcommon/master/repository/' }
+    }
+}
 
 include ':app'
+include ':flutter'
+
+setBinding(new Binding([gradle: this]))
+def filePath = "fieldbook/.android/include_flutter.groovy"
+apply from: filePath
