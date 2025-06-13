@@ -372,6 +372,7 @@ public class ConfigActivity extends ThemedActivity {
                 case 7:
                     startActivity(
                             FlutterActivity
+                                    // TODO use cached engine
                                     .withNewEngine()
                                     .initialRoute("/about")
                                     .build(ConfigActivity.this)
