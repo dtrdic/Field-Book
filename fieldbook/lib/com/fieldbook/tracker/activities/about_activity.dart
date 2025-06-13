@@ -131,7 +131,12 @@ class _AboutActivityState extends State<AboutActivity> {
           // App info card (title, version, update, manual, citation, rate)
           Card(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
+                  child: Text('App Info', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                ),
                 ListTile(
                   leading: const Icon(Icons.info),
                   title: const Text('Field Book'),
@@ -154,7 +159,6 @@ class _AboutActivityState extends State<AboutActivity> {
                 ListTile(
                   leading: const Icon(Icons.menu_book),
                   title: const Text('Manual'),
-                  subtitle: const Text('https://fieldbook.phenoapps.org/'),
                   onTap: () => _launchUrl('https://fieldbook.phenoapps.org/'),
                 ),
                 ListTile(
@@ -173,11 +177,15 @@ class _AboutActivityState extends State<AboutActivity> {
           // Project lead card
           Card(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
+                  child: Text('Project Lead', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                ),
                 ListTile(
                   leading: const Icon(Icons.person),
-                  title: const Text('Project Lead'),
-                  subtitle: const Text('Trife – Project Lead Info'),
+                  title: const Text('Trife – Project Lead Info'),
                 ),
                 ListTile(
                   leading: const Icon(Icons.email),
@@ -191,17 +199,20 @@ class _AboutActivityState extends State<AboutActivity> {
           // Contributors & funding card
           Card(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
+                  child: Text('Support', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                ),
                 ListTile(
                   leading: const Icon(Icons.people),
                   title: const Text('Contributors'),
-                  subtitle: const Text('https://github.com/PhenoApps/Field-Book#-contributors'),
                   onTap: () => _launchUrl('https://github.com/PhenoApps/Field-Book#-contributors'),
                 ),
                 ListTile(
                   leading: const Icon(Icons.attach_money),
                   title: const Text('Funding'),
-                  subtitle: const Text('https://github.com/PhenoApps/Field-Book#-funding'),
                   onTap: () => _launchUrl('https://github.com/PhenoApps/Field-Book#-funding'),
                 ),
               ],
@@ -210,11 +221,15 @@ class _AboutActivityState extends State<AboutActivity> {
           // Technical card (GitHub, libraries)
           Card(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
+                  child: Text('Technical', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                ),
                 ListTile(
                   leading: const Icon(Icons.code),
                   title: const Text('GitHub'),
-                  subtitle: const Text('https://github.com/PhenoApps/Field-Book'),
                   onTap: () => _launchUrl('https://github.com/PhenoApps/Field-Book'),
                 ),
                 ListTile(
@@ -228,11 +243,15 @@ class _AboutActivityState extends State<AboutActivity> {
           // Other apps card
           Card(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
+                  child: Text('Other Apps', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                ),
                 ListTile(
                   leading: const Icon(Icons.language),
                   title: const Text('PhenoApps.org'),
-                  subtitle: const Text('http://phenoapps.org/'),
                   onTap: () => _launchUrl('http://phenoapps.org/'),
                 ),
                 ListTile(
