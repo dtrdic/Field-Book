@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-/// A reusable AppBar for consistent navigation and actions across the app.
 AppBar buildAppBar(BuildContext context, {String title = '', List<Widget>? actions}) {
   return AppBar(
-    leading: Navigator.of(context).canPop()
-        ? IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () => Navigator.of(context).pop(),
-          )
-        : null,
+    automaticallyImplyLeading: false,
+    leading: IconButton(
+      icon: const Icon(Icons.arrow_back),
+      onPressed: () {
+        if (Navigator.of(context).canPop()) {
+          Navigator.of(context).pop();
+        } else {
+          SystemNavigator.pop();
+        }
+      },
+    ),
     title: Text(title),
     actions: actions,
   );
 }
-
