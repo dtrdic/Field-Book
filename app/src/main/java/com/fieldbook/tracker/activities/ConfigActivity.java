@@ -29,6 +29,7 @@ import androidx.preference.PreferenceManager;
 import com.fieldbook.tracker.BuildConfig;
 import com.fieldbook.tracker.R;
 import com.fieldbook.tracker.adapters.ImageListAdapter;
+import com.fieldbook.tracker.application.FieldBook;
 import com.fieldbook.tracker.database.DataHelper;
 import com.fieldbook.tracker.database.models.ObservationModel;
 import com.fieldbook.tracker.database.models.ObservationUnitModel;
@@ -321,7 +322,7 @@ public class ConfigActivity extends ThemedActivity {
                 R.drawable.ic_nav_drawer_settings,
                 R.drawable.ic_nav_drawer_statistics,
                 R.drawable.ic_tb_info,
-                android.R.drawable.ic_menu_compass
+                R.drawable.ic_tb_info,
         };
 
         settingsList.setOnItemClickListener((av, arg1, position, arg3) -> {
@@ -370,12 +371,12 @@ public class ConfigActivity extends ThemedActivity {
                     startActivity(intent);
                     break;
                 case 7:
+                    FieldBook app = (FieldBook) getApplication();
+                    app.navigateTo("/about");
                     startActivity(
-                            FlutterActivity
-                                    // TODO use cached engine
-                                    .withNewEngine()
-                                    .initialRoute("/about")
-                                    .build(ConfigActivity.this)
+                        FlutterActivity
+                            .withCachedEngine(FieldBook.FLUTTER_ENGINE_ID)
+                            .build(ConfigActivity.this)
                     );
                     break;
             }
