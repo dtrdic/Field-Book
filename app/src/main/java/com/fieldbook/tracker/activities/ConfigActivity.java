@@ -33,6 +33,7 @@ import com.fieldbook.tracker.application.FieldBook;
 import com.fieldbook.tracker.database.DataHelper;
 import com.fieldbook.tracker.database.models.ObservationModel;
 import com.fieldbook.tracker.database.models.ObservationUnitModel;
+import com.fieldbook.tracker.flutter.FlutterRoutes;
 import com.fieldbook.tracker.fragments.ImportDBFragment;
 import com.fieldbook.tracker.objects.FieldObject;
 import com.fieldbook.tracker.preferences.GeneralKeys;
@@ -372,7 +373,7 @@ public class ConfigActivity extends ThemedActivity {
                     break;
                 case 7:
                     FieldBook app = (FieldBook) getApplication();
-                    app.navigateTo("/about");
+                    app.navigateTo(FlutterRoutes.ABOUT);
                     startActivity(
                         FlutterActivity
                             .withCachedEngine(FieldBook.FLUTTER_ENGINE_ID)

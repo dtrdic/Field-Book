@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'app_routes.dart';
 import 'com/fieldbook/tracker/activities/about_activity.dart';
 import 'theme.dart';
 
 void main() => runApp(const MyApp());
 
 const MethodChannel _navigationChannel = MethodChannel('com.fieldbook/navigation');
+
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -36,10 +38,10 @@ class _MyAppState extends State<MyApp> {
       navigatorKey: _navigatorKey,
       title: 'Flutter Demo',
       theme: appTheme,
-      initialRoute: '/',
+      initialRoute: AppRoutes.home,
       routes: {
-        '/': (context) => const MyHomePage(title: 'Flutter Demo Home Page'),
-        '/about': (context) => const AboutActivity(),
+        AppRoutes.home: (context) => const MyHomePage(title: 'Flutter Demo Home Page'),
+        AppRoutes.about: (context) => const AboutActivity(),
       },
     );
   }
