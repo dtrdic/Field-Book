@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class AboutActivity extends StatefulWidget {
   const AboutActivity({super.key});
@@ -12,7 +13,7 @@ class AboutActivity extends StatefulWidget {
 }
 
 class _AboutActivityState extends State<AboutActivity> {
-  String version = '1.0.0'; // current app version placeholder
+  String version = '';
   String latestVersion = '';
   bool isUpdateAvailable = false;
   bool checkingUpdate = false;
@@ -21,10 +22,19 @@ class _AboutActivityState extends State<AboutActivity> {
   @override
   void initState() {
     super.initState();
+    _initVersion();
+  }
+
+  Future<void> _initVersion() async {
+    final info = await PackageInfo.fromPlatform();
+    setState(() {
+      version = info.version;
+    });
     checkForUpdate();
   }
 
   Future<void> checkForUpdate() async {
+    if (version.isEmpty) return;
     setState(() {
       checkingUpdate = true;
     });
