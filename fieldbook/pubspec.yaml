@@ -18,7 +18,10 @@ description: "A new Flutter module project."
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.8.1
+  # https://docs.flutter.dev/install/upgrade#switch-to-a-specific-flutter-version
+  # https://docs.flutter.dev/install/archive#stable-channel
+  flutter: ^3.27.4
+  sdk: ^3.6.0 # for pigeon
 
 dependencies:
   flutter:
@@ -30,6 +33,8 @@ dependencies:
   http: ^1.2.1
   url_launcher: ^6.0.0
   package_info_plus: ^6.0.0
+  pigeon: ^25.4.0
+  device_info_plus: ^9.0.0
 
 dev_dependencies:
   flutter_test:

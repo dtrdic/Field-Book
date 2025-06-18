@@ -6,4 +6,5 @@ package com.fieldbook.tracker.flutter
 object FlutterRoutes {
     const val HOME = "/"
     const val ABOUT = "/about"
+    const val PROFILE_PREFERENCES = "/profile_preferences"
 }

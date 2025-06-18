@@ -309,3 +309,12 @@ task prepareKotlinBuildScriptModel {}
 tasks.register("testClasses")
 
 android.defaultConfig.manifestPlaceholders = ['appAuthRedirectScheme': 'fieldbook' ]
+
+// TODO
+//task generatePigeon(type: Exec) {
+//    workingDir '../fieldbook'
+//    executable 'sh'
+//    args '-c', 'dart pigeon_runner.dart'
+//}
+//
+//preBuild.dependsOn(generatePigeon)

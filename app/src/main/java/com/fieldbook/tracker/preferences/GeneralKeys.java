@@ -17,6 +17,7 @@ public class GeneralKeys {
     public static final String LAST_NAME = "LastName";
     public static final String PERSON_UPDATE = "PersonUpdate";
     public static final String MODIFY_PROFILE_SETTINGS = "ModifyProfileSettings";
+    public static final String MODIFY_PROFILE_SETTINGS_FLUTTER = "ModifyProfileSettingsFlutter";
     public static final String DEVICE_NAME = "DeviceName";
 
     // Appearance

@@ -70,6 +70,7 @@
     <string name="settings_export">Export</string>
     <string name="settings_advanced">Settings</string>
     <string name="settings_profile">Profile</string>
+    <string name="settings_profile_flutter">Profile (Flutter)</string>
     <string name="settings_statistics">Statistics</string>
 
     <!-- Config Activity Fuzzy Search  -->

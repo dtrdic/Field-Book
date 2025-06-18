@@ -1,6 +1,7 @@
 package com.fieldbook.tracker.preferences;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -18,8 +19,10 @@ import com.bytehamster.lib.preferencesearch.SearchPreference;
 import com.bytehamster.lib.preferencesearch.SearchPreferenceResult;
 import com.fieldbook.tracker.R;
 import com.fieldbook.tracker.activities.PreferencesActivity;
+import com.fieldbook.tracker.application.FieldBook;
 import com.fieldbook.tracker.database.DataHelper;
 import com.fieldbook.tracker.dialogs.ListAddDialog;
+import com.fieldbook.tracker.flutter.FlutterRoutes;
 import com.fieldbook.tracker.utilities.DocumentTreeUtil;
 import com.fieldbook.tracker.utilities.NearbyShareUtil;
 import com.fieldbook.tracker.utilities.ZipUtil;
@@ -33,6 +36,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
+import io.flutter.embedding.android.FlutterActivity;
 
 @AndroidEntryPoint
 public class PreferencesFragment extends BasePreferenceFragment implements NearbyShareUtil.FileHandler {
@@ -53,6 +57,22 @@ public class PreferencesFragment extends BasePreferenceFragment implements Nearb
         prefMgr.setSharedPreferencesName(GeneralKeys.SHARED_PREF_FILE_NAME);
 
         setPreferencesFromResource(R.xml.preferences, rootKey);
+
+        androidx.preference.Preference flutterProfilePref = findPreference("pref_key_profile_flutter_settings");
+        if (flutterProfilePref != null) {
+            flutterProfilePref.setOnPreferenceClickListener(preference -> {
+                Context ctx = getContext();
+                if (ctx != null) {
+                    ((FieldBook) ctx.getApplicationContext()).navigateTo(FlutterRoutes.PROFILE_PREFERENCES);
+                    ctx.startActivity(
+                        FlutterActivity
+                            .withCachedEngine(FieldBook.FLUTTER_ENGINE_ID)
+                            .build(ctx)
+                    );
+                }
+                return true;
+            });
+        }
 
         searchPreference = findPreference("searchPreference");
         SearchConfiguration config = searchPreference.getSearchConfiguration();

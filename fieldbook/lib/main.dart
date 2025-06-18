@@ -1,3 +1,4 @@
+import 'package:fieldbook/com/fieldbook/tracker/activities/profile_preferences_activity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'app_routes.dart';
@@ -42,6 +43,7 @@ class _MyAppState extends State<MyApp> {
       routes: {
         AppRoutes.home: (context) => const MyHomePage(title: 'Flutter Demo Home Page'),
         AppRoutes.about: (context) => const AboutActivity(),
+        AppRoutes.profilePreferences: (context) => const ProfilePreferencesActivity(),
       },
     );
   }

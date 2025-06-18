@@ -13,6 +13,11 @@
         app:fragment="com.fieldbook.tracker.preferences.ProfilePreferencesFragment" />
 
     <Preference
+        android:icon="@drawable/ic_pref_profile_person"
+        android:key="pref_key_profile_flutter_settings"
+        android:title="@string/settings_profile_flutter" />
+
+    <Preference
         android:icon="@drawable/ic_star_circle_outline"
         android:key="pref_key_feature_settings"
         android:title="@string/preferences_features_title"

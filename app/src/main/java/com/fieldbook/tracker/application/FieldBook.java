@@ -5,6 +5,10 @@ import androidx.multidex.MultiDexApplication;
 import com.fieldbook.tracker.BuildConfig;
 
 import dagger.hilt.android.HiltAndroidApp;
+import dagger.hilt.android.EntryPointAccessors;
+import dagger.hilt.components.SingletonComponent;
+import dagger.hilt.EntryPoint;
+import dagger.hilt.InstallIn;
 import io.flutter.embedding.engine.FlutterEngine;
 import io.flutter.embedding.engine.FlutterEngineCache;
 import io.flutter.embedding.engine.dart.DartExecutor;
@@ -35,6 +39,17 @@ public class FieldBook extends MultiDexApplication {
         );
         FlutterEngineCache.getInstance().put(FLUTTER_ENGINE_ID, flutterEngine);
         navigationChannel = new MethodChannel(flutterEngine.getDartExecutor().getBinaryMessenger(), NAVIGATION_CHANNEL);
+
+        // Register Pigeon host APIs for Flutter using Hilt-injected Kotlin implementations
+        AppEntryPoint entryPoint = EntryPointAccessors.fromApplication(this, AppEntryPoint.class);
+        com.fieldbook.tracker.pigeon.SharedPreferencesApiHost.SharedPreferencesApi.setUp(
+            flutterEngine.getDartExecutor().getBinaryMessenger(),
+            entryPoint.sharedPreferencesApiImpl()
+        );
+        com.fieldbook.tracker.pigeon.PersonNameManagerApiHost.PersonNameManagerApi.setUp(
+            flutterEngine.getDartExecutor().getBinaryMessenger(),
+            entryPoint.personNameManagerApiImpl()
+        );
     }
 
     public void navigateTo(String route) {
@@ -45,5 +60,12 @@ public class FieldBook extends MultiDexApplication {
 
     public FlutterEngine getFlutterEngine() {
         return flutterEngine;
+    }
+
+    @EntryPoint
+    @InstallIn(SingletonComponent.class)
+    public interface AppEntryPoint {
+        com.fieldbook.tracker.pigeon.SharedPreferencesApiHost.SharedPreferencesApi sharedPreferencesApiImpl();
+        com.fieldbook.tracker.pigeon.PersonNameManagerApiHost.PersonNameManagerApi personNameManagerApiImpl();
     }
 }
