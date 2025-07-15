@@ -113,8 +113,12 @@ public class ConfigActivity extends ThemedActivity {
     boolean doubleBackToExitPressedOnce = false;
     ListView settingsList;
     private Menu systemMenu;
+
     //barcode search fab
     private FloatingActionButton barcodeSearchFab;
+    // flutter scanner fab
+    private FloatingActionButton flutterScannerFab;
+
     private boolean mlkitEnabled;
 
     private void invokeDatabaseImport(DocumentFile doc) {
@@ -401,6 +405,14 @@ public class ConfigActivity extends ThemedActivity {
             }
         });
 
+        flutterScannerFab = findViewById(R.id.act_config_flutter_scanner_fab);
+        flutterScannerFab.setOnClickListener(v -> {
+            FieldBook app = (FieldBook) getApplication();
+            app.navigateTo(FlutterRoutes.SCANNER);
+            Intent flutterScannerIntent = new Intent(this, FlutterScannerActivity.class);
+            startActivityForResult(flutterScannerIntent, REQUEST_BARCODE);
+        });
+
         //this must happen after migrations and can't be injected in config
         fieldSwitcher = new FieldSwitchImpl(this);
 
@@ -564,6 +576,7 @@ public class ConfigActivity extends ThemedActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        Log.d(TAG, "onActivityResult: " + requestCode + " " + resultCode);
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_APP_INTRO_CODE) {
             if (resultCode != Activity.RESULT_OK) finish();
@@ -599,12 +612,14 @@ public class ConfigActivity extends ThemedActivity {
                 preferences.edit().putBoolean(GeneralKeys.FIRST_RUN, false).apply();
             }
         } else if (requestCode == REQUEST_BARCODE) {
-            if (resultCode == RESULT_OK) {
+            if (resultCode == RESULT_OK && data != null) {
+
+                final boolean isFlutter = data.getBooleanExtra(FieldBook.EXTRA_IS_FLUTTER_CODE, false);
 
                 // get barcode from scan result
                 String scannedBarcode;
-                if (mlkitEnabled) {
-                    scannedBarcode = data.getStringExtra("barcode");
+                if (mlkitEnabled || isFlutter) {
+                    scannedBarcode = data.getStringExtra(ScannerActivity.EXTRA_BARCODE);
                 } else {
                     IntentResult plotDataResult = IntentIntegrator.parseActivityResult(resultCode, data);
                     scannedBarcode = plotDataResult.getContents();

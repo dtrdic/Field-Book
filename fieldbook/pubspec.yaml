@@ -35,6 +35,7 @@ dependencies:
   package_info_plus: ^6.0.0
   pigeon: ^25.4.0
   device_info_plus: ^9.0.0
+  mobile_scanner: ^6.0.0
 
 dev_dependencies:
   flutter_test:

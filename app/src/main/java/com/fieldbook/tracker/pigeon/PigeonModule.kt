@@ -25,6 +25,11 @@ abstract class PigeonModule {
         impl: PersonNameManagerApiImpl
     ): PersonNameManagerApiHost.PersonNameManagerApi
 
+    @Binds
+    abstract fun bindNavigationApi(
+        impl: NavigationApiImpl
+    ): NavigationApiHost.NavigationApi
+
     companion object {
         @Provides
         @Singleton

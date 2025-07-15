@@ -3,12 +3,13 @@ package com.fieldbook.tracker.application;
 import androidx.multidex.MultiDexApplication;
 
 import com.fieldbook.tracker.BuildConfig;
+import com.fieldbook.tracker.pigeon.NavigationApiHost;
 
-import dagger.hilt.android.HiltAndroidApp;
-import dagger.hilt.android.EntryPointAccessors;
-import dagger.hilt.components.SingletonComponent;
 import dagger.hilt.EntryPoint;
 import dagger.hilt.InstallIn;
+import dagger.hilt.android.EntryPointAccessors;
+import dagger.hilt.android.HiltAndroidApp;
+import dagger.hilt.components.SingletonComponent;
 import io.flutter.embedding.engine.FlutterEngine;
 import io.flutter.embedding.engine.FlutterEngineCache;
 import io.flutter.embedding.engine.dart.DartExecutor;
@@ -20,6 +21,7 @@ public class FieldBook extends MultiDexApplication {
     private FlutterEngine flutterEngine;
     private static final String NAVIGATION_CHANNEL = "com.fieldbook/navigation";
     private MethodChannel navigationChannel;
+    public static final String EXTRA_IS_FLUTTER_CODE = "extra_is_flutter_code";
 
     public FieldBook() {
         if (BuildConfig.DEBUG) {
@@ -50,6 +52,11 @@ public class FieldBook extends MultiDexApplication {
             flutterEngine.getDartExecutor().getBinaryMessenger(),
             entryPoint.personNameManagerApiImpl()
         );
+        // Register NavigationApi for Pigeon using NavigationApiImpl
+        NavigationApiHost.NavigationApi.setUp(
+            flutterEngine.getDartExecutor().getBinaryMessenger(),
+            entryPoint.navigationApiImpl()
+        );
     }
 
     public void navigateTo(String route) {
@@ -67,5 +74,6 @@ public class FieldBook extends MultiDexApplication {
     public interface AppEntryPoint {
         com.fieldbook.tracker.pigeon.SharedPreferencesApiHost.SharedPreferencesApi sharedPreferencesApiImpl();
         com.fieldbook.tracker.pigeon.PersonNameManagerApiHost.PersonNameManagerApi personNameManagerApiImpl();
+        NavigationApiHost.NavigationApi navigationApiImpl();
     }
 }

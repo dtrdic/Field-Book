@@ -14,4 +14,11 @@ void main(List<String> args) {
     '--java_out', '../app/src/main/java/com/fieldbook/tracker/pigeon/SharedPreferencesApiHost.java',
     '--java_package', 'com.fieldbook.tracker.pigeon',
   ]);
+
+  Pigeon.run([
+    '--input', 'lib/com/fieldbook/tracker/pigeon/navigation_api.dart',
+    '--dart_out', 'lib/com/fieldbook/tracker/pigeon/navigation_api.g.dart',
+    '--java_out', '../app/src/main/java/com/fieldbook/tracker/pigeon/NavigationApiHost.java',
+    '--java_package', 'com.fieldbook.tracker.pigeon',
+  ]);
 }

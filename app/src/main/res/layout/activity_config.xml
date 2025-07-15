@@ -23,16 +23,30 @@
             android:layout_height="match_parent"
             android:choiceMode="singleChoice" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_tb_search"
-            android:layout_margin="8dp"
-            android:id="@+id/act_config_search_fab"
-            android:contentDescription="@string/act_config_search_fab_content_description"
+            android:orientation="horizontal"
             android:layout_gravity="end|bottom"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"/>
+            android:layout_margin="8dp">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_tb_search"
+                android:id="@+id/act_config_flutter_scanner_fab"
+                android:contentDescription="@string/act_config_search_fab_content_description"
+                android:backgroundTint="#2196F3"/>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_tb_search"
+                    android:id="@+id/act_config_search_fab"
+                    android:layout_marginStart="16dp"
+                    android:contentDescription="@string/act_config_search_fab_content_description" />
+
+        </LinearLayout>
     </FrameLayout>
 
 </LinearLayout>
