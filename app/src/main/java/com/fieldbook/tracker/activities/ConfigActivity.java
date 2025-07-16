@@ -316,7 +316,8 @@ public class ConfigActivity extends ThemedActivity {
                 getString(R.string.settings_advanced),
                 getString(R.string.settings_statistics),
                 getString(R.string.about_title),
-                getString(R.string.about_title) + " (Flutter)"
+                getString(R.string.about_title) + " (Flutter)",
+                getString(R.string.settings_fields) + " (Flutter)",
         };
 
         Integer[] image_id = {
@@ -328,6 +329,7 @@ public class ConfigActivity extends ThemedActivity {
                 R.drawable.ic_nav_drawer_statistics,
                 R.drawable.ic_tb_info,
                 R.drawable.ic_tb_info,
+                R.drawable.ic_nav_drawer_fields,
         };
 
         settingsList.setOnItemClickListener((av, arg1, position, arg3) -> {
@@ -378,6 +380,15 @@ public class ConfigActivity extends ThemedActivity {
                 case 7:
                     FieldBook app = (FieldBook) getApplication();
                     app.navigateTo(FlutterRoutes.ABOUT);
+                    startActivity(
+                        FlutterActivity
+                            .withCachedEngine(FieldBook.FLUTTER_ENGINE_ID)
+                            .build(ConfigActivity.this)
+                    );
+                    break;
+                case 8:
+                    FieldBook app2 = (FieldBook) getApplication();
+                    app2.navigateTo(FlutterRoutes.FIELD_EDITOR);
                     startActivity(
                         FlutterActivity
                             .withCachedEngine(FieldBook.FLUTTER_ENGINE_ID)

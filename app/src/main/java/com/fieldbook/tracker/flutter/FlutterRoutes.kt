@@ -8,4 +8,5 @@ object FlutterRoutes {
     const val ABOUT = "/about"
     const val PROFILE_PREFERENCES = "/profile_preferences"
     const val SCANNER = "/scanner"
+    const val FIELD_EDITOR = "/field_editor"
 }
