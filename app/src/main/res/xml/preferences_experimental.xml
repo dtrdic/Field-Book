@@ -57,6 +57,13 @@
             android:summary="@string/pref_alpha_media_keycode_events_summary"
             android:title="@string/pref_alpha_media_keycode_events_title" />
 
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:icon="@drawable/flutter"
+            android:key="com.tracker.fieldbook.preferences.keys.use_flutter"
+            android:summary="@string/pref_alpha_use_flutter_summary"
+            android:title="@string/pref_alpha_use_flutter_title" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

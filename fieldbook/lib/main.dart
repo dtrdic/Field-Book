@@ -69,8 +69,8 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Build the list of routes dynamically from AppRoute enum, skipping home
     final routes = AppRoute.values.where((route) => route != AppRoute.home).toList();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(title),

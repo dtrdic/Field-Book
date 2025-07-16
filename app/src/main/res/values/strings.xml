@@ -94,10 +94,6 @@
     <!-- Changelog -->
     <string name="changelog_title">Changelog</string>
 
-
-
-
-
     <!-- FIELDS -->
     <!-- General -->
     <string name="menu_fields_sort_list">Sort Fields List</string>
@@ -920,6 +916,9 @@
     <string name="pref_beta_mlkit_summary">This option uses the MLKit library instead of the ZXing library for scanning barcodes</string>
     <string name="pref_beta_mlkit_enabled_title">Barcode Scanning using MLKit enabled</string>
     <string name="pref_beta_mlkit_enabled_message">Enabling this feature will switch the barcode scanning library from ZXing to MLKit</string>
+
+    <string name="pref_alpha_use_flutter_title">Use Flutter</string>
+    <string name="pref_alpha_use_flutter_summary">Use Flutter-based screens when available</string>
 
 
     <!-- STATISTICS -->

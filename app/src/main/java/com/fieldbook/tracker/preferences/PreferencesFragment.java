@@ -58,19 +58,25 @@ public class PreferencesFragment extends BasePreferenceFragment implements Nearb
 
         setPreferencesFromResource(R.xml.preferences, rootKey);
 
-        androidx.preference.Preference flutterProfilePref = findPreference("pref_key_profile_flutter_settings");
-        if (flutterProfilePref != null) {
-            flutterProfilePref.setOnPreferenceClickListener(preference -> {
-                Context ctx = getContext();
-                if (ctx != null) {
-                    ((FieldBook) ctx.getApplicationContext()).navigateTo(FlutterRoutes.PROFILE_PREFERENCES);
-                    ctx.startActivity(
-                        FlutterActivity
-                            .withCachedEngine(FieldBook.FLUTTER_ENGINE_ID)
-                            .build(ctx)
-                    );
+        androidx.preference.Preference profilePref = findPreference("pref_profile_person");
+        if (profilePref != null) {
+            profilePref.setOnPreferenceClickListener(preference -> {
+                boolean useFlutter = PreferenceManager.getDefaultSharedPreferences(getContext())
+                        .getBoolean(PreferenceKeys.USE_FLUTTER, false);
+                if (useFlutter) {
+                    Context ctx = getContext();
+                    if (ctx != null) {
+                        ((FieldBook) ctx.getApplicationContext()).navigateTo(FlutterRoutes.PROFILE_PREFERENCES);
+                        ctx.startActivity(
+                            FlutterActivity
+                                .withCachedEngine(FieldBook.FLUTTER_ENGINE_ID)
+                                .build(ctx)
+                        );
+                        return true;
+                    }
                 }
-                return true;
+                // Default: open normal profile dialog (let default handler run)
+                return false;
             });
         }
 

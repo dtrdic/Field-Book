@@ -120,6 +120,7 @@ public class ConfigActivity extends ThemedActivity {
     private FloatingActionButton flutterScannerFab;
 
     private boolean mlkitEnabled;
+    private boolean useFlutter;
 
     private void invokeDatabaseImport(DocumentFile doc) {
         database.open();
@@ -308,6 +309,10 @@ public class ConfigActivity extends ThemedActivity {
 
         settingsList = findViewById(R.id.myList);
 
+        // Retrieve the 'Use flutter' setting
+        useFlutter = PreferenceManager.getDefaultSharedPreferences(this)
+                .getBoolean(PreferenceKeys.USE_FLUTTER, false);
+
         String[] configList = new String[]{
                 getString(R.string.settings_fields),
                 getString(R.string.settings_traits),
@@ -316,8 +321,6 @@ public class ConfigActivity extends ThemedActivity {
                 getString(R.string.settings_advanced),
                 getString(R.string.settings_statistics),
                 getString(R.string.about_title),
-                getString(R.string.about_title) + " (Flutter)",
-                getString(R.string.settings_fields) + " (Flutter)",
         };
 
         Integer[] image_id = {
@@ -328,23 +331,30 @@ public class ConfigActivity extends ThemedActivity {
                 R.drawable.ic_nav_drawer_settings,
                 R.drawable.ic_nav_drawer_statistics,
                 R.drawable.ic_tb_info,
-                R.drawable.ic_tb_info,
-                R.drawable.ic_nav_drawer_fields,
         };
 
         settingsList.setOnItemClickListener((av, arg1, position, arg3) -> {
             Intent intent = new Intent();
             switch (position) {
                 case 0:
-                    intent.setClassName(ConfigActivity.this,
-                            FieldEditorActivity.class.getName());
-                    startActivity(intent);
+                    if (useFlutter) {
+                        FieldBook app = (FieldBook) getApplication();
+                        app.navigateTo(FlutterRoutes.FIELD_EDITOR);
+                        startActivity(
+                            FlutterActivity
+                                .withCachedEngine(FieldBook.FLUTTER_ENGINE_ID)
+                                .build(ConfigActivity.this)
+                        );
+                    } else {
+                        intent.setClassName(ConfigActivity.this,
+                                FieldEditorActivity.class.getName());
+                        startActivity(intent);
+                    }
                     break;
                 case 1:
                     intent.setClassName(ConfigActivity.this,
                             TraitEditorActivity.class.getName());
                     startActivity(intent);
-
                     break;
                 case 2:
                     if (checkTraitsExist() < 0) return;
@@ -373,27 +383,19 @@ public class ConfigActivity extends ThemedActivity {
                     }
                     break;
                 case 6:
-                    intent.setClassName(ConfigActivity.this,
-                            AboutActivity.class.getName());
-                    startActivity(intent);
-                    break;
-                case 7:
-                    FieldBook app = (FieldBook) getApplication();
-                    app.navigateTo(FlutterRoutes.ABOUT);
-                    startActivity(
-                        FlutterActivity
-                            .withCachedEngine(FieldBook.FLUTTER_ENGINE_ID)
-                            .build(ConfigActivity.this)
-                    );
-                    break;
-                case 8:
-                    FieldBook app2 = (FieldBook) getApplication();
-                    app2.navigateTo(FlutterRoutes.FIELD_EDITOR);
-                    startActivity(
-                        FlutterActivity
-                            .withCachedEngine(FieldBook.FLUTTER_ENGINE_ID)
-                            .build(ConfigActivity.this)
-                    );
+                    if (useFlutter) {
+                        FieldBook app = (FieldBook) getApplication();
+                        app.navigateTo(FlutterRoutes.ABOUT);
+                        startActivity(
+                            FlutterActivity
+                                .withCachedEngine(FieldBook.FLUTTER_ENGINE_ID)
+                                .build(ConfigActivity.this)
+                        );
+                    } else {
+                        intent.setClassName(ConfigActivity.this,
+                                AboutActivity.class.getName());
+                        startActivity(intent);
+                    }
                     break;
             }
         });
@@ -405,7 +407,15 @@ public class ConfigActivity extends ThemedActivity {
 
         barcodeSearchFab = findViewById(R.id.act_config_search_fab);
         barcodeSearchFab.setOnClickListener(v -> {
-            if (mlkitEnabled) {
+            // Use Flutter scanner if useFlutter is enabled
+            boolean useFlutterScanner = PreferenceManager.getDefaultSharedPreferences(this)
+                    .getBoolean(PreferenceKeys.USE_FLUTTER, false);
+            if (useFlutterScanner) {
+                FieldBook app = (FieldBook) getApplication();
+                app.navigateTo(FlutterRoutes.SCANNER);
+                Intent flutterScannerIntent = new Intent(this, FlutterScannerActivity.class);
+                startActivityForResult(flutterScannerIntent, REQUEST_BARCODE);
+            } else if (mlkitEnabled) {
                 ScannerActivity.Companion.requestCameraAndStartScanner(this, REQUEST_BARCODE, null, null, null);
             } else {
                 new IntentIntegrator(this)
@@ -414,14 +424,6 @@ public class ConfigActivity extends ThemedActivity {
                         .setRequestCode(REQUEST_BARCODE)
                         .initiateScan();
             }
-        });
-
-        flutterScannerFab = findViewById(R.id.act_config_flutter_scanner_fab);
-        flutterScannerFab.setOnClickListener(v -> {
-            FieldBook app = (FieldBook) getApplication();
-            app.navigateTo(FlutterRoutes.SCANNER);
-            Intent flutterScannerIntent = new Intent(this, FlutterScannerActivity.class);
-            startActivityForResult(flutterScannerIntent, REQUEST_BARCODE);
         });
 
         //this must happen after migrations and can't be injected in config

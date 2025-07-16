@@ -31,14 +31,6 @@
             android:layout_margin="8dp">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_tb_search"
-                android:id="@+id/act_config_flutter_scanner_fab"
-                android:contentDescription="@string/act_config_search_fab_content_description"
-                android:backgroundTint="#2196F3"/>
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_tb_search"
