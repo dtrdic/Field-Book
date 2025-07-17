@@ -7,7 +7,11 @@ AppBar buildAppBar(BuildContext context, {String title = '', List<Widget>? actio
     leading: IconButton(
       icon: const Icon(Icons.arrow_back),
       onPressed: () {
+        if (Navigator.of(context).canPop()) {
+          Navigator.of(context).pop();
+        } else {
           SystemNavigator.pop();
+        }
       },
     ),
     title: Text(title),

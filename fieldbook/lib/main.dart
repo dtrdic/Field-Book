@@ -5,21 +5,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'app_routes.dart';
 import 'com/fieldbook/tracker/activities/about_activity.dart';
+import 'config_activity.dart';
 import 'theme.dart';
 
-void main() => runApp(const MyApp());
+void main() => runApp(const FieldBookFlutter());
 
 const MethodChannel _navigationChannel = MethodChannel('com.fieldbook/navigation');
 
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+class FieldBookFlutter extends StatefulWidget {
+  const FieldBookFlutter({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  State<FieldBookFlutter> createState() => _FieldBookFlutterState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _FieldBookFlutterState extends State<FieldBookFlutter> {
   final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
 
   @override
@@ -29,7 +30,7 @@ class _MyAppState extends State<MyApp> {
       if (call.method == 'navigateTo') {
         final String? route = call.arguments as String?;
         if (route != null && _navigatorKey.currentState != null) {
-          _navigatorKey.currentState!.pushNamed(route);
+          _navigatorKey.currentState!.pushReplacementNamed(route);
         }
       }
     });
@@ -45,58 +46,17 @@ class _MyAppState extends State<MyApp> {
           color: Colors.grey,
           thickness: 1.0,
           space: 0.0,
-          indent: 16.0,
-          endIndent: 16.0,
         ),
       ),
-      initialRoute: AppRoute.home.path,
+      initialRoute: AppRoute.config.path,
       routes: {
-        AppRoute.home.path: (context) => const MyHomePage(title: ''),
+        AppRoute.config.path: (context) => const ConfigActivity(),
         AppRoute.about.path: (context) => const AboutActivity(),
         AppRoute.profilePreferences.path: (context) => const ProfilePreferencesActivity(),
         AppRoute.scanner.path: (context) => const ScannerActivity(),
         AppRoute.fieldEditor.path: (context) => const FieldEditorActivity(),
       },
 
-    );
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    final routes = AppRoute.values.where((route) => route != AppRoute.home).toList();
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-      ),
-      body: ListView(
-        padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 16),
-        children: [
-          const Text(
-            'FieldBook Flutter Home',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 16),
-          const Text(
-            '(Go back)',
-            style: TextStyle(fontSize: 16, color: Colors.grey),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 32),
-          ...routes.map((route) => ListTile(
-                title: Text(route.displayName),
-                onTap: () => Navigator.pushNamed(context, route.path),
-                trailing: const Icon(Icons.chevron_right),
-              )),
-        ],
-      ),
     );
   }
 }

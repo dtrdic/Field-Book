@@ -1,5 +1,5 @@
 enum AppRoute {
-  home('/', 'Home'),
+  config('/', 'Configuration'),
   about('/about', 'About'),
   profilePreferences('/profile_preferences', 'Profile Preferences'),
   scanner('/scanner', 'Scanner'),

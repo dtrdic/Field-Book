@@ -70,8 +70,8 @@
     <string name="settings_export">Export</string>
     <string name="settings_advanced">Settings</string>
     <string name="settings_profile">Profile</string>
-    <string name="settings_profile_flutter">Profile (Flutter)</string>
     <string name="settings_statistics">Statistics</string>
+    <string name="settings_flutter">Open Flutter</string>
 
     <!-- Config Activity Fuzzy Search  -->
     <string name="act_config_fuzzy_search_failed">Database could not retrieve a field or plot with code: %s</string>

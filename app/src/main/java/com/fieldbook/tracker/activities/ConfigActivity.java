@@ -309,7 +309,6 @@ public class ConfigActivity extends ThemedActivity {
 
         settingsList = findViewById(R.id.myList);
 
-        // Retrieve the 'Use flutter' setting
         useFlutter = PreferenceManager.getDefaultSharedPreferences(this)
                 .getBoolean(PreferenceKeys.USE_FLUTTER, false);
 
@@ -332,6 +331,14 @@ public class ConfigActivity extends ThemedActivity {
                 R.drawable.ic_nav_drawer_statistics,
                 R.drawable.ic_tb_info,
         };
+
+        if (useFlutter) {
+            configList = concat(configList, new String[]{
+                    getString(R.string.settings_flutter),
+            });
+
+            image_id = ArrayUtils.addAll(image_id, R.drawable.flutter);
+        }
 
         settingsList.setOnItemClickListener((av, arg1, position, arg3) -> {
             Intent intent = new Intent();
@@ -397,6 +404,14 @@ public class ConfigActivity extends ThemedActivity {
                         startActivity(intent);
                     }
                     break;
+                case 7:
+                    FieldBook app = (FieldBook) getApplication();
+                    app.navigateTo(FlutterRoutes.Config);
+                    startActivity(
+                        FlutterActivity
+                            .withCachedEngine(FieldBook.FLUTTER_ENGINE_ID)
+                            .build(ConfigActivity.this)
+                    );
             }
         });
 
