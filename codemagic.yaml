@@ -1,0 +1,22 @@
+workflows:
+  flutter-module-ios-build:
+    name: Build Flutter Module
+    environment:
+      flutter: 3.27.4
+      groups:
+        - google_play
+    scripts:
+      - name: Install dependencies
+        script: |
+          cd fieldbook
+          flutter pub get
+      - name: Build iOS Framework
+        script: |
+          cd fieldbook
+          flutter build ios --debug --no-codesign
+    artifacts:
+      - fieldbook/build/ios/ipa/*.ipa
+    publishing:
+      email:
+        recipients:
+          - n.soldevilla@integratedbreeding.net
