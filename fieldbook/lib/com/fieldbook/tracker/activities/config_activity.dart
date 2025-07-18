@@ -1,6 +1,6 @@
 import 'package:fieldbook/app_widgets.dart';
 import 'package:flutter/material.dart';
-import 'app_routes.dart';
+import '../../../../app_routes.dart';
 
 class ConfigActivity extends StatelessWidget {
   const ConfigActivity({Key? key}) : super(key: key);
@@ -41,6 +41,11 @@ class ConfigActivity extends StatelessWidget {
       icon: Icons.info_outline,
       route: AppRoute.about,
     ),
+    _ConfigItem(
+      title: 'Test Intro',
+      icon: Icons.slideshow,
+      route: AppRoute.appIntroActivity,
+    ),
   ];
 
   @override
@@ -71,4 +76,3 @@ class _ConfigItem {
   final AppRoute? route;
   const _ConfigItem({required this.title, required this.icon, this.route});
 }
-

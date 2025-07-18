@@ -4,8 +4,9 @@ import 'package:fieldbook/com/fieldbook/tracker/activities/scanner_activity.dart
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'app_routes.dart';
+import 'com/fieldbook/tracker/activities/appintro/appintro_activity.dart';
 import 'com/fieldbook/tracker/activities/about_activity.dart';
-import 'config_activity.dart';
+import 'com/fieldbook/tracker/activities/config_activity.dart';
 import 'theme.dart';
 
 void main() => runApp(const FieldBookFlutter());
@@ -55,6 +56,7 @@ class _FieldBookFlutterState extends State<FieldBookFlutter> {
         AppRoute.profilePreferences.path: (context) => const ProfilePreferencesActivity(),
         AppRoute.scanner.path: (context) => const ScannerActivity(),
         AppRoute.fieldEditor.path: (context) => const FieldEditorActivity(),
+        AppRoute.appIntroActivity.path: (context) => const AppIntroActivity(),
       },
 
     );
