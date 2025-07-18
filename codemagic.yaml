@@ -10,6 +10,26 @@ workflows:
         script: |
           cd fieldbook
           flutter pub get
+
+      - name: Bump iOS deployment target to 11.0
+        script: |
+          cd fieldbook
+          
+          # 1) Podfile: ensure at least iOS 11.0
+          if [ -f ios/Podfile ]; then
+            sed -i '' "s/platform :ios, .*/platform :ios, '11.0'/g" ios/Podfile
+          else
+            cat > ios/Podfile <<EOF
+            platform :ios, '11.0'
+            target 'Runner' do
+              use_frameworks!
+            end
+            EOF
+          fi
+          
+          # 2) Flutter-generated xcconfig: override to 11.0
+          sed -i '' "s/IPHONEOS_DEPLOYMENT_TARGET = .*/IPHONEOS_DEPLOYMENT_TARGET = 11.0/" ios/Flutter/Generated.xcconfig
+
       - name: Build iOS Framework
         script: |
           cd fieldbook
