@@ -35,11 +35,11 @@ workflows:
           cd fieldbook/.ios
           
           sed -i '' "/installer.pods_project.targets.each do |target|/a\\
-            target.build_configurations.each do |config|\\
-              # Exclude arm64 when building for iOS simulator\\
-              config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = 'arm64'\\
-            end\\
-          end" Podfile
+              target.build_configurations.each do |config|\\
+                # Exclude arm64 when building for iOS simulator\\
+                config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = 'arm64'\\
+              end
+          " Podfile
           
           # debug
           cat Podfile
