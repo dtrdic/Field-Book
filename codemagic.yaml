@@ -34,7 +34,7 @@ workflows:
         script: |
           cd fieldbook/.ios
           
-          sed -i '' "/installer.pods_project.targets.each do |target|/a\\
+          sed -i '' "/flutter_additional_ios_build_settings(target)/a\\
               target.build_configurations.each do |config|\\
                 # Exclude arm64 when building for iOS simulator\\
                 config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = 'arm64'\\
