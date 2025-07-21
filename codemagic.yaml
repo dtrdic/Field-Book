@@ -44,6 +44,7 @@ workflows:
             end
           " Podfile
           
+          pod deintegrate
           pod install --repo-update
       - name: Build iOS Framework
         script: |
