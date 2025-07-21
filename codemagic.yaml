@@ -32,10 +32,9 @@ workflows:
 
       - name: Exclude arm64 for iOS Simulator
         script: |
-          cd fieldbook
-          PODFILE=.ios/Podfile
+          cd fieldbook/.ios
           
-          # Insert arm64 exclusion into existing post_install block if not present
+          # Insert arm64 exclusion into existing post_install block
           sed -i '' "/post_install do/a\\
             installer.pods_project.targets.each do |target|\\
               target.build_configurations.each do |config|\\
@@ -43,8 +42,9 @@ workflows:
                 config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = 'arm64'\\
               end\\
             end
-          " "$PODFILE"
-
+          " Podfile
+          
+          pod install --repo-update
       - name: Build iOS Framework
         script: |
           cd fieldbook
