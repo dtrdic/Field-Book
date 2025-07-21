@@ -33,9 +33,9 @@ workflows:
       - name: Build iOS Framework
         script: |
           cd fieldbook
-          flutter build ios --debug --no-codesign
+          flutter build ios --debug --simulator --no-codesign
     artifacts:
-      - fieldbook/build/ios/iphoneos/Runner.app
+      - fieldbook/build/ios/iphonesimulator/Runner.app
     publishing:
       email:
         recipients:
