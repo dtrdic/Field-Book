@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'app_routes.dart';
 import 'com/fieldbook/tracker/activities/appintro/appintro_activity.dart';
 import 'com/fieldbook/tracker/activities/about_activity.dart';
+import 'com/fieldbook/tracker/activities/collect/collect_activity.dart';
 import 'com/fieldbook/tracker/activities/config_activity.dart';
 import 'theme.dart';
 
@@ -52,6 +53,7 @@ class _FieldBookFlutterState extends State<FieldBookFlutter> {
       initialRoute: AppRoute.config.path,
       routes: {
         AppRoute.config.path: (context) => const ConfigActivity(),
+        AppRoute.collect.path: (context) => const CollectActivity(),
         AppRoute.about.path: (context) => const AboutActivity(),
         AppRoute.profilePreferences.path: (context) => const ProfilePreferencesActivity(),
         AppRoute.scanner.path: (context) => const ScannerActivity(),

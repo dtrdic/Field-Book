@@ -1,5 +1,6 @@
 enum AppRoute {
   config('/', 'Configuration'),
+  collect('/collect', 'Collect'),
   about('/about', 'About'),
   profilePreferences('/profile_preferences', 'Profile Preferences'),
   scanner('/scanner', 'Scanner'),

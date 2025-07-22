@@ -19,7 +19,7 @@ class ConfigActivity extends StatelessWidget {
     _ConfigItem(
       title: 'Collect',
       icon: Icons.assignment,
-      route: null, // TODO: Add Collect route if available
+      route: AppRoute.collect,
     ),
     _ConfigItem(
       title: 'Export',
