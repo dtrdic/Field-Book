@@ -245,6 +245,10 @@
         <activity android:name=".activities.AppIntroActivity"
             android:label="My Custom AppIntro" />
 
+        <activity
+            android:name=".activities.KmpHostActivity"
+            android:exported="false" />
+
         <provider
             android:name=".provider.GenericFileProvider"
             android:authorities="${applicationId}.fileprovider"

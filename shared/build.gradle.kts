@@ -1,6 +1,8 @@
 plugins {
     id("org.jetbrains.kotlin.multiplatform")
     id("com.android.kotlin.multiplatform.library")
+    id("org.jetbrains.kotlin.plugin.compose") version "2.1.10"
+    id("org.jetbrains.compose") version "1.7.3"
 }
 
 kotlin {
@@ -21,6 +23,7 @@ kotlin {
         }.configure {
             instrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         }
+
     }
 
     // For iOS targets, this is also where you should
@@ -58,12 +61,11 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                implementation("org.jetbrains.kotlin:kotlin-stdlib:2.1.10")
-                // Add KMP dependencies here
-                implementation("org.jetbrains.compose.runtime:runtime:1.6.10")
-                implementation("org.jetbrains.compose.foundation:foundation:1.6.10")
-                implementation("org.jetbrains.compose.material3:material3:1.6.10")
-                implementation("org.jetbrains.compose.ui:ui:1.6.10")
+                implementation(compose.runtime)
+                implementation(compose.foundation)
+                implementation(compose.material3)
+                implementation(compose.ui)
+                implementation(compose.components.resources)
             }
         }
 
