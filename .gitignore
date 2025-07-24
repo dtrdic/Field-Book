@@ -59,3 +59,5 @@ local.properties
 *.jks
 *.keystore
 keystore.config
+
+.kotlin
