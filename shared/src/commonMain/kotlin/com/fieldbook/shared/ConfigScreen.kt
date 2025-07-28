@@ -16,14 +16,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-//import field_book.shared.generated.resources.Res
-//import field_book.shared.generated.resources.ic_nav_drawer_collect_data
-//import field_book.shared.generated.resources.ic_nav_drawer_fields
-//import field_book.shared.generated.resources.ic_nav_drawer_settings
-//import field_book.shared.generated.resources.ic_nav_drawer_statistics
-//import field_book.shared.generated.resources.ic_nav_drawer_traits
-//import field_book.shared.generated.resources.ic_tb_info
-//import field_book.shared.generated.resources.trait_date_save
+import field_book.shared.generated.resources.Res
+import field_book.shared.generated.resources.ic_nav_drawer_collect_data
+import field_book.shared.generated.resources.ic_nav_drawer_fields
+import field_book.shared.generated.resources.ic_nav_drawer_settings
+import field_book.shared.generated.resources.ic_nav_drawer_statistics
+import field_book.shared.generated.resources.ic_nav_drawer_traits
+import field_book.shared.generated.resources.ic_tb_info
+import field_book.shared.generated.resources.trait_date_save
 import org.jetbrains.compose.resources.painterResource
 
 
@@ -38,8 +38,7 @@ fun ConfigScreen() {
         "Statistics",
         "About"
     )
-    // FIXME
-    /*val configIcons = listOf(
+    val configIcons = listOf(
         Res.drawable.ic_nav_drawer_fields,
         Res.drawable.ic_nav_drawer_traits,
         Res.drawable.ic_nav_drawer_collect_data,
@@ -47,7 +46,7 @@ fun ConfigScreen() {
         Res.drawable.trait_date_save,
         Res.drawable.ic_nav_drawer_statistics,
         Res.drawable.ic_tb_info
-    )*/
+    )
     Surface(modifier = Modifier.fillMaxSize()) {
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             itemsIndexed(configItems ) { index, item ->
@@ -57,11 +56,11 @@ fun ConfigScreen() {
                         .padding(16.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    /*Icon(
+                    Icon(
                         painter = painterResource(configIcons[index]),
                         contentDescription = item,
                         modifier = Modifier.padding(end = 16.dp).size(24.dp)
-                    )*/
+                    )
                     Text(
                         text = item,
                         style = MaterialTheme.typography.bodyLarge

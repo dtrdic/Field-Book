@@ -1,8 +1,8 @@
 plugins {
     id("org.jetbrains.kotlin.multiplatform")
     id("com.android.kotlin.multiplatform.library")
-    id("org.jetbrains.kotlin.plugin.compose") version "2.1.10"
-    id("org.jetbrains.compose") version "1.7.3"
+    id("org.jetbrains.kotlin.plugin.compose") version "2.1.10" // same as main app build.gradle
+    id("org.jetbrains.compose") version "1.7.3" // compatible with compileSdk = 34
 }
 
 kotlin {
@@ -23,7 +23,6 @@ kotlin {
         }.configure {
             instrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         }
-
     }
 
     // For iOS targets, this is also where you should
