@@ -12,7 +12,7 @@ class KmpHostActivity : ComponentActivity() {
         val hostScreenType = KmpHostScreenType.fromValue(screen ?: KmpHostScreenType.CONFIG.value)
         setContent {
             when (hostScreenType) {
-                KmpHostScreenType.CONFIG -> ConfigScreen()
+                KmpHostScreenType.CONFIG -> ConfigScreen(onBack = { finish() })
             }
         }
     }
