@@ -21,15 +21,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.fieldbook.shared.generated.resources.Res
+import com.fieldbook.shared.generated.resources.ic_nav_drawer_collect_data
+import com.fieldbook.shared.generated.resources.ic_nav_drawer_fields
+import com.fieldbook.shared.generated.resources.ic_nav_drawer_settings
+import com.fieldbook.shared.generated.resources.ic_nav_drawer_statistics
+import com.fieldbook.shared.generated.resources.ic_nav_drawer_traits
+import com.fieldbook.shared.generated.resources.ic_tb_info
+import com.fieldbook.shared.generated.resources.trait_date_save
 import com.fieldbook.shared.theme.MainTheme
-import field_book.shared.generated.resources.Res
-import field_book.shared.generated.resources.ic_nav_drawer_collect_data
-import field_book.shared.generated.resources.ic_nav_drawer_fields
-import field_book.shared.generated.resources.ic_nav_drawer_settings
-import field_book.shared.generated.resources.ic_nav_drawer_statistics
-import field_book.shared.generated.resources.ic_nav_drawer_traits
-import field_book.shared.generated.resources.ic_tb_info
-import field_book.shared.generated.resources.trait_date_save
 import org.jetbrains.compose.resources.painterResource
 
 

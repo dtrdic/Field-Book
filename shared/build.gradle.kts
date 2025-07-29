@@ -102,3 +102,32 @@ kotlin {
     }
 
 }
+
+compose.resources {
+    packageOfResClass = "com.fieldbook.shared.generated.resources"
+}
+
+val xcfName = "sharedKit"
+
+tasks.register("packSharedXCFramework") {
+    dependsOn(
+        "linkDebugFrameworkIosArm64",
+        "linkDebugFrameworkIosSimulatorArm64"
+    )
+    doLast {
+        val outDir = layout.buildDirectory.dir("XCFrameworks").get().asFile
+        outDir.deleteRecursively()
+        outDir.mkdirs()
+
+        val buildDir = layout.buildDirectory.get().asFile
+
+        project.exec {
+            commandLine(
+                "xcodebuild", "-create-xcframework",
+                "-framework", "${buildDir}/bin/iosArm64/debugFramework/${xcfName}.framework",
+                "-framework", "${buildDir}/bin/iosSimulatorArm64/debugFramework/${xcfName}.framework",
+                "-output", "${outDir}/${xcfName}.xcframework"
+            )
+        }
+    }
+}
