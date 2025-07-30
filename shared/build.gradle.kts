@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
+
 plugins {
     id("org.jetbrains.kotlin.multiplatform")
     id("com.android.kotlin.multiplatform.library")
@@ -34,21 +36,13 @@ kotlin {
     // https://developer.android.com/kotlin/multiplatform/migrate
     val xcfName = "sharedKit"
 
-    iosX64 {
-        binaries.framework {
-            baseName = xcfName
-        }
-    }
+    val xcf = XCFramework(xcfName)
+    val iosTargets = listOf(iosX64(), iosArm64(), iosSimulatorArm64())
 
-    iosArm64 {
-        binaries.framework {
+    iosTargets.forEach {
+        it.binaries.framework {
             baseName = xcfName
-        }
-    }
-
-    iosSimulatorArm64 {
-        binaries.framework {
-            baseName = xcfName
+            xcf.add(this)
         }
     }
 
@@ -105,29 +99,4 @@ kotlin {
 
 compose.resources {
     packageOfResClass = "com.fieldbook.shared.generated.resources"
-}
-
-val xcfName = "sharedKit"
-
-tasks.register("packSharedXCFramework") {
-    dependsOn(
-        "linkDebugFrameworkIosArm64",
-        "linkDebugFrameworkIosSimulatorArm64"
-    )
-    doLast {
-        val outDir = layout.buildDirectory.dir("XCFrameworks").get().asFile
-        outDir.deleteRecursively()
-        outDir.mkdirs()
-
-        val buildDir = layout.buildDirectory.get().asFile
-
-        project.exec {
-            commandLine(
-                "xcodebuild", "-create-xcframework",
-                "-framework", "${buildDir}/bin/iosArm64/debugFramework/${xcfName}.framework",
-                "-framework", "${buildDir}/bin/iosSimulatorArm64/debugFramework/${xcfName}.framework",
-                "-output", "${outDir}/${xcfName}.xcframework"
-            )
-        }
-    }
 }

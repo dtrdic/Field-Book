@@ -1,9 +1,15 @@
+options:
+  bundleIdPrefix: com.fieldbook
+
 name: iosApp
 targets:
   iosApp:
     type: application
     platform: iOS
     deploymentTarget: '13.0'
-    sources: [ "." ]
+    bundleId: com.fieldbook.iosApp
+    sources:
+      - path: .
+        glob: "*.swift"
     dependencies:
       - framework: Frameworks/sharedKit.xcframework
