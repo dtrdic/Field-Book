@@ -2,14 +2,25 @@ options:
   bundleIdPrefix: com.fieldbook
 
 name: iosApp
+
+settings:
+  CODE_SIGNING_ALLOWED: NO
+  CODE_SIGNING_REQUIRED: NO
+  CODE_SIGN_IDENTITY: ""
+
 targets:
   iosApp:
     type: application
     platform: iOS
-    deploymentTarget: '13.0'
+    deploymentTarget: "14.0"
     bundleId: com.fieldbook.iosApp
+    info:
+      path: Info.plist
     sources:
-      - path: .
-        glob: "*.swift"
+      - path: Sources
+        glob: "**/*.swift"
+    resources: []
     dependencies:
-      - framework: Frameworks/sharedKit.xcframework
+      - framework: ../shared/build/XCFrameworks/debug/sharedKit.xcframework
+        embed: true
+        codeSign: false

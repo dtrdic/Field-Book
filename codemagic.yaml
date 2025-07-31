@@ -10,22 +10,19 @@ workflows:
           chmod +x gradlew
           cd shared
           ../gradlew assembleSharedKitDebugXCFramework
-          mkdir -p ../iosApp/Frameworks
-          cp -R build/XCFrameworks/debug/sharedKit.xcframework ../iosApp/Frameworks/
       - name: Generate Xcode project
         script: |
           cd iosApp
           xcodegen generate --spec xcodegen.yml
       - name: Build iOS app for Simulator (Debug, no tests)
         script: |
-          xcodebuild \
+          xcodebuild build \
             -project "iosApp/iosApp.xcodeproj" \
             -scheme "iosApp" \
             -sdk iphonesimulator \
             -configuration Debug \
             CODE_SIGN_IDENTITY="" \
             CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGNING_ALLOWED=NO \
-            build
+            CODE_SIGNING_ALLOWED=NO
     artifacts:
       - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
