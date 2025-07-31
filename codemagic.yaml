@@ -20,9 +20,6 @@ workflows:
             -project "iosApp/iosApp.xcodeproj" \
             -scheme "iosApp" \
             -sdk iphonesimulator \
-            -configuration Debug \
-            CODE_SIGN_IDENTITY="" \
-            CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGNING_ALLOWED=NO
+            -configuration Debug
     artifacts:
       - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
