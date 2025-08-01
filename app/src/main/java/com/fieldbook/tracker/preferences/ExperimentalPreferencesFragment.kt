@@ -7,11 +7,12 @@ import androidx.preference.CheckBoxPreference
 import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
+import com.fieldbook.tracker.BuildConfig
 import com.fieldbook.tracker.R
 import com.fieldbook.tracker.activities.PreferencesActivity
+import com.fieldbook.tracker.utilities.GeoNavHelper
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
-import com.fieldbook.tracker.utilities.GeoNavHelper
 
 @AndroidEntryPoint
 class ExperimentalPreferencesFragment : PreferenceFragmentCompat() {
@@ -63,6 +64,13 @@ class ExperimentalPreferencesFragment : PreferenceFragmentCompat() {
                 }
             }
             true
+        }
+
+        if (!BuildConfig.DEBUG) {
+            val useKmpPref = findPreference<CheckBoxPreference>("com.tracker.fieldbook.preferences.keys.use_kmp");
+            if (useKmpPref != null) {
+                useKmpPref.isVisible = false;
+            }
         }
     }
 

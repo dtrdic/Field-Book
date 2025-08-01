@@ -131,9 +131,10 @@ class PreferenceKeys {
         const val MLKIT_PREFERENCE_KEY = "com.tracker.fieldbook.preferences.keys.mlkit"
         const val ENABLE_FIELD_AUDIO = "com.tracker.fieldbook.preferences.keys.enable_field_audio"
         const val EXPERIMENTAL_NEW_BRAPI_UI = "com.tracker.fieldbook.preferences.keys.enable_enhanced_brapi_import"
+        const val USE_KMP = "com.tracker.fieldbook.preferences.keys.use_kmp"
 
         private val experimentalPreferenceKeys = setOf(REPEATED_VALUES_PREFERENCE_KEY, MEDIA_KEYCODE_NAVIGATION, MLKIT_PREFERENCE_KEY,
-            ENABLE_FIELD_AUDIO, EXPERIMENTAL_NEW_BRAPI_UI)
+            ENABLE_FIELD_AUDIO, EXPERIMENTAL_NEW_BRAPI_UI, USE_KMP)
 
         val SETTINGS_KEYS = profilePreferenceKeys + featurePreferenceKeys + appearancePreferenceKeys +
                 behaviorPreferenceKeys + locationPreferenceKeys + soundPreferenceKeys + brapiPreferenceKeys +

@@ -71,6 +71,7 @@
     <string name="settings_advanced">Settings</string>
     <string name="settings_profile">Profile</string>
     <string name="settings_statistics">Statistics</string>
+    <string name="settings_kmp">Open KMP</string>
 
     <!-- Config Activity Fuzzy Search  -->
     <string name="act_config_fuzzy_search_failed">Database could not retrieve a field or plot with code: %s</string>
@@ -919,6 +920,9 @@
     <string name="pref_beta_mlkit_summary">This option uses the MLKit library instead of the ZXing library for scanning barcodes</string>
     <string name="pref_beta_mlkit_enabled_title">Barcode Scanning using MLKit enabled</string>
     <string name="pref_beta_mlkit_enabled_message">Enabling this feature will switch the barcode scanning library from ZXing to MLKit</string>
+
+    <string name="pref_alpha_use_kmp_title">Use KMP</string>
+    <string name="pref_alpha_use_kmp_summary">Use Kotlin Multiplatform Compose screens when available</string>
 
 
     <!-- STATISTICS -->

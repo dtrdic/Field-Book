@@ -44,6 +44,13 @@
         app:iconSpaceReserved="false">
 
         <CheckBoxPreference
+            android:defaultValue="false"
+            android:icon="@drawable/kotlin_icon_2021"
+            android:key="com.tracker.fieldbook.preferences.keys.use_kmp"
+            android:summary="@string/pref_alpha_use_kmp_summary"
+            android:title="@string/pref_alpha_use_kmp_title" />
+
+        <CheckBoxPreference
             android:defaultValue="true"
             android:icon="@drawable/ic_pref_brapi_server"
             android:key="com.tracker.fieldbook.preferences.keys.enable_enhanced_brapi_import"
